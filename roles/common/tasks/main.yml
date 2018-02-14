@@ -1,0 +1,46 @@
+---
+- name: Update the repository cache "apt-get update"
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+- name: Safe upgrade "apt-get upgrade"
+  apt:
+    upgrade: yes
+- name: Ensure basic packages are installed
+  apt: name={{ item }} state=installed
+  with_items:
+    - aptitude
+    - bash-completion
+    - zsh
+    - git
+    - gcc
+    - g++
+    - valgrind
+    - gdb
+    - curl
+    - wget
+    - nmap
+    - tree
+    - vlc
+    - htop
+    - unzip
+    - tar
+    - gzip
+    - bzip2
+    - qpdfview
+    - ipython3
+- name: Copy shell settings
+  copy:
+    src: "{{ item }}"
+    dest: "{{ local_home }}"
+  with_items:
+    - .alias
+    - .zshrc
+    - .dir_colors
+- name: Change default shell on zsh
+  user:
+    name: "{{ item }}"
+    shell: /bin/zsh
+  with_items:
+    - "{{ user }}"
+    - root

@@ -1,0 +1,14 @@
+---
+- hosts: local
+  become_user: root
+  become: yes
+
+  roles:
+    - common
+    - system-config
+    - synaptics # Settings for touchpad
+    - vim       # Configuration for vim
+    - spotify
+    - google-chrome
+    # - python3
+    # - java

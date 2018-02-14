@@ -1,0 +1,13 @@
+---
+- name: Install VIM
+  apt:
+    name: vim
+    state: installed
+- name: Config Vim
+  copy:
+    src: .vimrc
+    dest: "{{ local_home }}"
+- name: Set vim as default editor
+  alternatives:
+    name: editor
+    path: /usr/bin/vim

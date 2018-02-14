@@ -1,0 +1,10 @@
+---
+- name: Ensure synaptics installed
+  apt: name=xserver-xorg-input-synaptics state=installed
+- name: Set up touchpad
+  copy:
+    src: 70-synaptics.conf
+    dest: /etc/X11/xorg.conf.d/
+    owner: root
+    group: root
+    mode: 0644

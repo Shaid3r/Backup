@@ -1,0 +1,42 @@
+---
+- name: Config GRUB
+  lineinfile:
+    path: /etc/default/grub
+    regexp: '^{{ item.key }}='
+    line: '{{ item.key }}={{ item.value }}'
+  with_items:
+      - { key: GRUB_DEFAULT, value: saved }
+      - { key: GRUB_TIMEOUT, value: 2 }
+      - { key: GRUB_SAVEDEFAULT, value: true }
+      # - { key: GRUB_BACKGROUND, value: "\"/usr/share/grub/background.png\"" }
+  register: grub
+- name: Grub update
+  command: update-grub
+  when: grub.changed
+- name: Add example fstab
+  copy:
+    src: fstab
+    dest: /etc/fstab.example
+    owner: root
+    group: root
+    mode: 0644
+- name: Ensure sudo is installed
+  apt: name=sudo state=installed
+- name: Add {{ user }} to sudo group
+  user:
+    name: "{{ user }}"
+    groups: sudo
+    append: yes
+- name: Copy iwlwifi
+  copy:
+    src: iwlwifi-2030-6.ucode
+    dest: /lib/firmware/
+- name: Reload iwlwifi
+  modprobe:
+    name: iwlwifi
+    state: present
+- name: Fix sound
+  lineinfile:
+    path: /etc/pulse/daemon.conf
+    regexp: flat-volumes
+    line: flat-volumes = no
