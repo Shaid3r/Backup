@@ -1,4 +1,4 @@
 ---
 
-user: shaid3r
+user: "{{ lookup('env', 'USER') }}"
 local_home: "{{ lookup('env','HOME') }}"

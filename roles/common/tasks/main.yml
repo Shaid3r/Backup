@@ -29,18 +29,43 @@
     - bzip2
     - qpdfview
     - ipython3
-- name: Copy shell settings
+    - konsole
+- name: Config konsole
   copy:
-    src: "{{ item }}"
-    dest: "{{ local_home }}"
-  with_items:
-    - .alias
-    - .zshrc
-    - .dir_colors
+    src: konsole/
+    dest: "{{ local_home }}/.local/share/konsole"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  when: user != "root"
+- name: Clone prezto (zsh config)
+  git:
+    repo: https://github.com/sorin-ionescu/prezto.git
+    recursive: yes
+    dest: "{{ local_home }}/.zprezto"
+  ignore_errors: True
+- name: Config zsh
+  block:
+    - copy:
+        src: "{{ item }}"
+        dest: "{{ local_home }}"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: 0644
+      with_items:
+        - .zlogin
+        - .zlogout
+        - .zpreztorc
+        - .zprofile
+        - .zshenv
+        - .zshrc
+    - copy:
+        src: prompt_skwp_setup
+        dest: "{{ local_home }}/.zprezto/modules/prompt/functions/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: 0644
+      
 - name: Change default shell on zsh
   user:
-    name: "{{ item }}"
+    name: "{{ user }}"
     shell: /bin/zsh
-  with_items:
-    - "{{ user }}"
-    - root

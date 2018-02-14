@@ -27,6 +27,7 @@
     name: "{{ user }}"
     groups: sudo
     append: yes
+  when: user != "root"
 - name: Copy iwlwifi
   copy:
     src: iwlwifi-2030-6.ucode

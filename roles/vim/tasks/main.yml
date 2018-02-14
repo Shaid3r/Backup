@@ -7,6 +7,9 @@
   copy:
     src: .vimrc
     dest: "{{ local_home }}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: 0644
 - name: Set vim as default editor
   alternatives:
     name: editor
