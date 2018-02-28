@@ -1,0 +1,9 @@
+---
+- name: Install important python packages
+  apt: name={{ item }} state=installed
+  with_items:
+  - ipython3
+  - python3-pip
+- name: Update pip packages
+  command: pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U
+  ignore_errors: True

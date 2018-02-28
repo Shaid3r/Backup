@@ -28,7 +28,6 @@
     - gzip
     - bzip2
     - qpdfview
-    - ipython3
     - konsole
 - name: Config konsole
   copy:
