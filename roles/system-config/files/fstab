@@ -5,9 +5,8 @@
 # disks are added and removed. See fstab(5).
 #
 # <file system>             <mount point>  <type>  <options>  <dump>  <pass>
-UUID=7A6E-5A91                            /boot/efi      vfat    defaults,noatime 0 2
-UUID=e4fa1ed1-2239-41b1-b0ae-c61a04880996 swap           swap    defaults,noatime,discard 0 0
-UUID=f26fe8b8-68dc-4dc3-8024-7da715daa183 /              ext4    defaults,noatime,discard 0 1
-UUID=c9488549-7a2b-430a-a008-2ff1ebfc71de /home          ext4    defaults,noatime,discard 0 2
+UUID=7A6E-5A91                            /boot/efi      vfat    defaults,noatime 0 1
+UUID=7e91de77-3b2c-4c93-b6d7-662c899829ff swap           swap    defaults,noatime,discard 0 0
+UUID=03e80b29-4adf-4f68-a18e-4d59e827a8f2 /              ext4    errors=remount-ro,noatime,discard 0 1
+UUID=6eef4085-9e4a-4e02-870b-3112ac72dee8 /home          ext4    defaults,noatime,discard 0 2
 UUID=C622EAC522EABA17                     /media/DATA    ntfs-3g rw,auto,user,umask=000 0 0
-# UUID=C622EAC522EABA17 /media/DATA ntfs-3g rw,auto,user,fmask=0777,dmask=0000          0       0

@@ -2,7 +2,7 @@
 - name: Install VIM
   apt:
     name: vim
-    state: installed
+    state: present
 - name: Config Vim
   copy:
     src: .vimrc

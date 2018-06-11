@@ -9,4 +9,4 @@
     state: present
     filename: 'spotify'
 - name: Install Spotify
-  apt: name=spotify-client state=installed
+  apt: name=spotify-client state=present

@@ -21,7 +21,7 @@
     group: root
     mode: 0644
 - name: Ensure sudo is installed
-  apt: name=sudo state=installed
+  apt: name=sudo state=present
 - name: Add {{ user }} to sudo group
   user:
     name: "{{ user }}"
